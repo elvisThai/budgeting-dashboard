@@ -10,6 +10,15 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    accounts = db.relationship("Account", backref="user", lazy=True, cascade="all, delete-orphan")
+    transactions = db.relationship("Transaction", backref="user", lazy=True, cascade="all, delete-orphan")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
 
 class Account(db.Model):
     __tablename__ = "accounts"
@@ -20,6 +29,7 @@ class Account(db.Model):
     name = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(100), nullable=False)
     mask = db.Column(db.String(20), nullable=True)
+    transactions = db.relationship("Transaction", backref="account", lazy=True, cascade="all, delete-orphan")
 
 class Transaction(db.Model):
     __tablename__ = "transactions"

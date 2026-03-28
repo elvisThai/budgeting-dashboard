@@ -3,6 +3,7 @@ import random
 
 from app import app
 from models import db, User, Account, Transaction
+from utils.auth_helpers import hash_password
 
 with app.app_context():
     # clear old data
@@ -14,7 +15,7 @@ with app.app_context():
     # create sample user
     user = User(
         email="test@example.com",
-        password_hash="fakehashedpassword123"
+        password_hash=hash_password("Password123!")
     )
     db.session.add(user)
     db.session.commit()
