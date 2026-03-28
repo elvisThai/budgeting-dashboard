@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-#store settings in config
+#store app settings in one place
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False

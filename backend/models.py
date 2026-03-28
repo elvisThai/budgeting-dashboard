@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+#shared database object for all models
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -13,7 +14,8 @@ class User(db.Model):
     accounts = db.relationship("Account", backref="user", lazy=True, cascade="all, delete-orphan")
     transactions = db.relationship("Transaction", backref="user", lazy=True, cascade="all, delete-orphan")
 
-    def to_dict(self):
+    #return safe user data for api responses
+    def toDict(self):
         return {
             "id": self.id,
             "email": self.email,

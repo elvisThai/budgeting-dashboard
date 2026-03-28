@@ -1,4 +1,5 @@
-def validate_register_payload(payload):
+def validateRegisterPayload(payload):
+    #collect all register form errors
     errors = {}
 
     email = (payload.get("email") or "").strip()
@@ -17,7 +18,8 @@ def validate_register_payload(payload):
     return errors
 
 
-def validate_login_payload(payload):
+def validateLoginPayload(payload):
+    #collect all login form errors
     errors = {}
 
     if not (payload.get("email") or "").strip():

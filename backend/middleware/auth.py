@@ -1,12 +1,15 @@
 from flask import g, request
 
-from utils.auth_helpers import get_user_from_request
+from utils.auth_helpers import getUserFromRequest
 
 
-def load_current_user():
+def loadCurrentUser():
+    #default to no logged in user
     g.current_user = None
 
+    #skip auth lookup for preflight requests
     if request.method == "OPTIONS":
         return
 
-    g.current_user = get_user_from_request()
+    #attach user to flask global if token is valid
+    g.current_user = getUserFromRequest()
