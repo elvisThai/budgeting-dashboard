@@ -18,3 +18,8 @@ dist/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Python virtual envs
+venv/
+.venv/
+backend/.venv/
