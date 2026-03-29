@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search, Filter, Plus, Download } from 'lucide-react';
+import './TransactionsPage.css';
 
 const TransactionsPage = () => {
   const transactions = [
@@ -51,103 +52,75 @@ const TransactionsPage = () => {
   ];
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Transactions</h1>
-        <p className="text-gray-600">View and manage all your financial transactions.</p>
-      </div>
+    <div className="transactions-page">
+      <header className="page-header">
+        <h1 className="page-title">Transactions</h1>
+        <p className="page-subtitle">View and manage all your financial transactions.</p>
+      </header>
 
-      {/* Filters and Search */}
-      <div className="card mb-6">
-        <div className="card-body">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+      <section className="card transactions-page__filters">
+        <div className="card__body">
+          <div className="transactions-page__filters-row">
+            <div className="transactions-page__search">
+              <div className="form-input-wrap">
+                <Search size={20} className="form-input-wrap__icon" />
                 <input
                   type="text"
                   placeholder="Search transactions..."
-                  className="form-input pl-10"
+                  className="form-input form-input--with-icon"
                 />
               </div>
             </div>
-            <div className="flex gap-2">
-              <button className="btn btn-secondary">
+            <div className="transactions-page__filter-actions">
+              <button className="button button--secondary">
                 <Filter size={16} />
                 Filter
               </button>
-              <button className="btn btn-secondary">
+              <button className="button button--secondary">
                 <Download size={16} />
                 Export
               </button>
-              <button className="btn btn-primary">
+              <button className="button button--primary">
                 <Plus size={16} />
                 Add Transaction
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Transactions List */}
       <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">All Transactions</h3>
-          <p className="card-subtitle">{transactions.length} transactions found</p>
+        <div className="card__header">
+          <h3 className="card__title">All Transactions</h3>
+          <p className="card__subtitle">{transactions.length} transactions found</p>
         </div>
-        <div className="card-body p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+        <div className="transactions-page__table-wrap">
+            <table className="transactions-page__table">
+              <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Description
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Category
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Account
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
-                  </th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Account</th>
+                  <th>Date</th>
+                  <th className="transactions-page__amount-header">Amount</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody>
                 {transactions.map((transaction) => (
-                  <tr key={transaction.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="font-medium text-gray-900">
-                        {transaction.description}
-                      </div>
+                  <tr key={transaction.id}>
+                    <td className="transactions-page__description">{transaction.description}</td>
+                    <td>
+                      <span className="transactions-page__badge">{transaction.category}</span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
-                        {transaction.category}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {transaction.account}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {transaction.date}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <span className={`font-semibold ${
-                        transaction.type === 'income' ? 'text-success-600' : 'text-gray-900'
-                      }`}>
+                    <td className="transactions-page__muted">{transaction.account}</td>
+                    <td className="transactions-page__muted">{transaction.date}</td>
+                    <td className={`transactions-page__amount ${transaction.type === 'income' ? 'transactions-page__amount--income' : ''}`}>
                         {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
-                      </span>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
         </div>
       </div>
     </div>

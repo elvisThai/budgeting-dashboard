@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Wallet, BarChart3, CreditCard, Link as LinkIcon, LogIn, UserPlus } from 'lucide-react';
+import { Wallet, LogIn, UserPlus } from 'lucide-react';
+import './Navigation.css';
 
 const Navigation = () => {
   const location = useLocation();
@@ -11,53 +12,53 @@ const Navigation = () => {
 
   return (
     <nav className="navigation">
-      <div className="nav-container">
-        <Link to="/" className="nav-brand">
+      <div className="navigation__inner">
+        <Link to="/" className="navigation__brand">
           <Wallet size={24} />
           BudgetTracker
         </Link>
         
-        <ul className="nav-links">
-          <li>
+        <ul className="navigation__links">
+          <li className="navigation__item">
             <Link 
               to="/" 
-              className={`nav-link ${isActive('/') ? 'active' : ''}`}
+              className={`navigation__link ${isActive('/') ? 'navigation__link--active' : ''}`}
             >
               Dashboard
             </Link>
           </li>
-          <li>
+          <li className="navigation__item">
             <Link 
               to="/transactions" 
-              className={`nav-link ${isActive('/transactions') ? 'active' : ''}`}
+              className={`navigation__link ${isActive('/transactions') ? 'navigation__link--active' : ''}`}
             >
               Transactions
             </Link>
           </li>
-          <li>
+          <li className="navigation__item">
             <Link 
               to="/analytics" 
-              className={`nav-link ${isActive('/analytics') ? 'active' : ''}`}
+              className={`navigation__link ${isActive('/analytics') ? 'navigation__link--active' : ''}`}
             >
               Analytics
             </Link>
           </li>
-          <li>
+          <li className="navigation__item">
             <Link 
               to="/connect-bank" 
-              className={`nav-link ${isActive('/connect-bank') ? 'active' : ''}`}
+              className={`navigation__link ${isActive('/connect-bank') ? 'navigation__link--active' : ''}`}
             >
               Connect Bank
             </Link>
           </li>
         </ul>
 
-        <div className="nav-actions">
-          <Link to="/login" className="btn btn-ghost btn-sm">
+        <div className="navigation__actions">
+          <Link to="/login" className="button button--ghost button--small">
             <LogIn size={16} />
             Login
           </Link>
-          <Link to="/register" className="btn btn-primary btn-sm">
+          <Link to="/register" className="button button--primary button--small">
             <UserPlus size={16} />
             Sign Up
           </Link>

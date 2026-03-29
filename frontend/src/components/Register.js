@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, Check } from 'lucide-react';
+import './Auth.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -35,39 +36,39 @@ const Register = () => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-primary-100">
-            <User className="h-6 w-6 text-primary-600" />
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-card__header">
+          <div className="auth-card__icon">
+            <User size={24} />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+          <h2 className="auth-card__title">
             Create your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="auth-card__subtitle">
             Or{' '}
-            <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
+            <Link to="/login" className="auth-card__link">
               sign in to your existing account
             </Link>
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="auth-form__fields">
+            <div className="auth-form__row">
+              <div className="form-field">
                 <label htmlFor="firstName" className="form-label">
                   First name
                 </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <div className="form-input-wrap">
+                  <User className="form-input-wrap__icon" size={20} />
                   <input
                     id="firstName"
                     name="firstName"
                     type="text"
                     autoComplete="given-name"
                     required
-                    className="form-input pl-10"
+                    className="form-input form-input--with-icon"
                     placeholder="First name"
                     value={formData.firstName}
                     onChange={handleChange}
@@ -75,7 +76,7 @@ const Register = () => {
                 </div>
               </div>
               
-              <div>
+              <div className="form-field">
                 <label htmlFor="lastName" className="form-label">
                   Last name
                 </label>
@@ -93,19 +94,19 @@ const Register = () => {
               </div>
             </div>
             
-            <div>
+            <div className="form-field">
               <label htmlFor="email" className="form-label">
                 Email address
               </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <div className="form-input-wrap">
+                <Mail className="form-input-wrap__icon" size={20} />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="form-input pl-10"
+                  className="form-input form-input--with-icon"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -113,26 +114,26 @@ const Register = () => {
               </div>
             </div>
             
-            <div>
+            <div className="form-field">
               <label htmlFor="password" className="form-label">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <div className="form-input-wrap">
+                <Lock className="form-input-wrap__icon" size={20} />
                 <input
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   required
-                  className="form-input pl-10 pr-10"
+                  className="form-input form-input--with-icon form-input--with-action"
                   placeholder="Create a password"
                   value={formData.password}
                   onChange={handleChange}
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="form-input-wrap__action"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -140,14 +141,14 @@ const Register = () => {
               </div>
               
               {formData.password && (
-                <div className="mt-2 space-y-1">
+                <div className="password-checklist">
                   {passwordRequirements.map((req, index) => (
-                    <div key={index} className="flex items-center gap-2 text-sm">
+                    <div key={index} className="password-checklist__item">
                       <Check 
                         size={14} 
-                        className={req.met ? 'text-success-600' : 'text-gray-300'} 
+                        className={req.met ? 'password-checklist__icon password-checklist__icon--met' : 'password-checklist__icon'} 
                       />
-                      <span className={req.met ? 'text-success-600' : 'text-gray-500'}>
+                      <span className={req.met ? 'password-checklist__text password-checklist__text--met' : 'password-checklist__text'}>
                         {req.text}
                       </span>
                     </div>
@@ -156,26 +157,26 @@ const Register = () => {
               )}
             </div>
             
-            <div>
+            <div className="form-field">
               <label htmlFor="confirmPassword" className="form-label">
                 Confirm password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <div className="form-input-wrap">
+                <Lock className="form-input-wrap__icon" size={20} />
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
                   type={showConfirmPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   required
-                  className="form-input pl-10 pr-10"
+                  className="form-input form-input--with-icon form-input--with-action"
                   placeholder="Confirm your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="form-input-wrap__action"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -187,7 +188,7 @@ const Register = () => {
             </div>
           </div>
 
-          <div className="flex items-center">
+          <label className="checkbox-field">
             <input
               id="terms"
               name="terms"
@@ -195,34 +196,34 @@ const Register = () => {
               required
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+              className="checkbox-field__input"
             />
-            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+            <span className="checkbox-field__label">
               I agree to the{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <button type="button" className="button-link">
                 Terms of Service
-              </a>{' '}
+              </button>{' '}
               and{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">
+              <button type="button" className="button-link">
                 Privacy Policy
-              </a>
-            </label>
-          </div>
+              </button>
+            </span>
+          </label>
 
-          <div>
+          <div className="auth-form__submit">
             <button
               type="submit"
-              className="btn btn-primary w-full btn-lg"
+              className="button button--primary button--large button--full"
               disabled={!agreedToTerms || formData.password !== formData.confirmPassword}
             >
               Create account
             </button>
           </div>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          <div className="auth-card__footer">
+            <p className="auth-card__footer-text">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-primary-600 hover:text-primary-500">
+              <Link to="/login" className="auth-card__link">
                 Sign in here
               </Link>
             </p>

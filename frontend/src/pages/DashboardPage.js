@@ -1,5 +1,6 @@
 import React from 'react';
 import { TrendingUp, TrendingDown, DollarSign, CreditCard, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import './DashboardPage.css';
 
 const DashboardPage = () => {
   // Mock data for demonstration
@@ -70,124 +71,100 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-        <p className="text-gray-600">Welcome back! Here's your financial overview.</p>
-      </div>
+    <div className="dashboard-page">
+      <header className="page-header">
+        <h1 className="page-title">Dashboard</h1>
+        <p className="page-subtitle">Welcome back! Here's your financial overview.</p>
+      </header>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <section className="dashboard-page__stats">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="stat-card">
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-2 bg-primary-50 rounded-lg">
-                  <Icon size={20} className="text-primary-600" />
+            <article key={index} className="dashboard-stat">
+              <div className="dashboard-stat__top">
+                <div className="dashboard-stat__icon">
+                  <Icon size={20} />
                 </div>
-                <div className={`stat-change ${stat.changeType}`}>
-                  {stat.changeType === 'positive' ? (
-                    <ArrowUpRight size={14} />
-                  ) : (
-                    <ArrowDownRight size={14} />
-                  )}
+                <div className={`dashboard-stat__change dashboard-stat__change--${stat.changeType}`}>
+                  {stat.changeType === 'positive' ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
                   {stat.change}
                 </div>
               </div>
-              <div className="stat-value">{stat.value}</div>
-              <div className="stat-label">{stat.title}</div>
-            </div>
+              <div className="dashboard-stat__value">{stat.value}</div>
+              <div className="dashboard-stat__label">{stat.title}</div>
+            </article>
           );
         })}
-      </div>
+      </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Spending Overview */}
-        <div className="lg:col-span-2">
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">Spending Overview</h3>
-              <p className="card-subtitle">Your spending trends this month</p>
-            </div>
-            <div className="card-body">
-              <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-gray-400 mb-2">
-                    <TrendingUp size={48} />
-                  </div>
-                  <p className="text-gray-500">Chart will be displayed here</p>
-                  <p className="text-sm text-gray-400">Interactive spending trends</p>
-                </div>
+      <section className="dashboard-page__main">
+        <div className="card dashboard-page__overview">
+          <div className="card__header">
+            <h3 className="card__title">Spending Overview</h3>
+            <p className="card__subtitle">Your spending trends this month</p>
+          </div>
+          <div className="card__body">
+            <div className="dashboard-page__chart-placeholder">
+              <div className="dashboard-page__chart-content">
+                <TrendingUp size={48} />
+                <p>Chart will be displayed here</p>
+                <span>Interactive spending trends</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Recent Transactions */}
-        <div>
-          <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">Recent Transactions</h3>
-              <p className="card-subtitle">Latest activity</p>
-            </div>
-            <div className="card-body p-0">
-              <div className="space-y-0">
-                {recentTransactions.map((transaction) => (
-                  <div key={transaction.id} className="p-4 border-b border-gray-100 last:border-b-0">
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="font-medium text-gray-900">
-                          {transaction.description}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {transaction.category} • {transaction.date}
-                        </div>
-                      </div>
-                      <div className={`font-semibold ${
-                        transaction.type === 'income' ? 'text-success-600' : 'text-gray-900'
-                      }`}>
-                        {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
-                      </div>
+        <div className="card">
+          <div className="card__header">
+            <h3 className="card__title">Recent Transactions</h3>
+            <p className="card__subtitle">Latest activity</p>
+          </div>
+          <div className="card__body dashboard-page__transactions-body">
+            <div className="dashboard-page__transactions-list">
+              {recentTransactions.map((transaction) => (
+                <div key={transaction.id} className="dashboard-page__transaction">
+                  <div className="dashboard-page__transaction-copy">
+                    <div className="dashboard-page__transaction-title">{transaction.description}</div>
+                    <div className="dashboard-page__transaction-meta">
+                      {transaction.category} • {transaction.date}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="card-footer">
-              <button className="btn btn-ghost w-full">
-                View All Transactions
-              </button>
+                  <div className={`dashboard-page__transaction-amount ${transaction.type === 'income' ? 'dashboard-page__transaction-amount--income' : ''}`}>
+                    {transaction.amount > 0 ? '+' : ''}${Math.abs(transaction.amount).toFixed(2)}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+          <div className="card__footer">
+            <button className="button button--ghost button--full">View All Transactions</button>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Quick Actions */}
-      <div className="mt-8">
-        <div className="card">
-          <div className="card-header">
-            <h3 className="card-title">Quick Actions</h3>
-            <p className="card-subtitle">Common tasks and shortcuts</p>
-          </div>
-          <div className="card-body">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button className="btn btn-primary">
-                <CreditCard size={16} />
-                Add Transaction
-              </button>
-              <button className="btn btn-secondary">
-                <TrendingUp size={16} />
-                View Analytics
-              </button>
-              <button className="btn btn-secondary">
-                <DollarSign size={16} />
-                Set Budget
-              </button>
-            </div>
+      <section className="dashboard-page__actions card">
+        <div className="card__header">
+          <h3 className="card__title">Quick Actions</h3>
+          <p className="card__subtitle">Common tasks and shortcuts</p>
+        </div>
+        <div className="card__body">
+          <div className="dashboard-page__action-grid">
+            <button className="button button--primary">
+              <CreditCard size={16} />
+              Add Transaction
+            </button>
+            <button className="button button--secondary">
+              <TrendingUp size={16} />
+              View Analytics
+            </button>
+            <button className="button button--secondary">
+              <DollarSign size={16} />
+              Set Budget
+            </button>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

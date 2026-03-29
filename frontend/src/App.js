@@ -7,14 +7,13 @@ import AnalyticsPage from './pages/AnalyticsPage';
 import ConnectBankPage from './pages/ConnectBankPage';
 import Login from './components/Login';
 import Register from './components/Register';
-import './styles/components.css';
 
 function App() {
   return (
     <Router>
-      <div className="app">
+      <div className="app-shell">
         <Navigation />
-        <main className="main-content">
+        <main className="app-content">
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/transactions" element={<TransactionsPage />} />

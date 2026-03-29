@@ -1,0 +1,19 @@
+.transactions-page__filters { margin-bottom: 1.5rem; }
+.transactions-page__filters-row, .transactions-page__filter-actions { display: flex; gap: 1rem; }
+.transactions-page__filters-row { align-items: center; }
+.transactions-page__search { flex: 1; }
+.transactions-page__filter-actions { gap: 0.5rem; flex-wrap: wrap; }
+.transactions-page__table-wrap { overflow-x: auto; }
+.transactions-page__table { width: 100%; border-collapse: collapse; }
+.transactions-page__table thead, .transactions-page__table tr:hover { background: var(--gray-50); }
+.transactions-page__table th, .transactions-page__table td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--gray-200); text-align: left; }
+.transactions-page__table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-500); }
+.transactions-page__description, .transactions-page__amount { font-weight: 700; }
+.transactions-page__muted { color: var(--gray-500); font-size: 0.92rem; }
+.transactions-page__badge { display: inline-flex; align-items: center; padding: 0.2rem 0.65rem; border-radius: 999px; background: var(--primary-100); color: var(--primary-900); font-size: 0.8rem; font-weight: 600; }
+.transactions-page__amount, .transactions-page__amount-header { text-align: right; }
+.transactions-page__amount--income { color: var(--success-600); }
+
+@media (max-width: 768px) {
+  .transactions-page__filters-row { flex-direction: column; align-items: stretch; }
+}

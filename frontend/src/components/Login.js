@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import './Auth.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,38 +24,38 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-primary-100">
-            <Lock className="h-6 w-6 text-primary-600" />
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-card__header">
+          <div className="auth-card__icon">
+            <Lock size={24} />
           </div>
-          <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+          <h2 className="auth-card__title">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="auth-card__subtitle">
             Or{' '}
-            <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
+            <Link to="/register" className="auth-card__link">
               create a new account
             </Link>
           </p>
         </div>
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <div className="auth-form__fields">
+            <div className="form-field">
               <label htmlFor="email" className="form-label">
                 Email address
               </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <div className="form-input-wrap">
+                <Mail className="form-input-wrap__icon" size={20} />
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="form-input pl-10"
+                  className="form-input form-input--with-icon"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -62,26 +63,26 @@ const Login = () => {
               </div>
             </div>
             
-            <div>
+            <div className="form-field">
               <label htmlFor="password" className="form-label">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <div className="form-input-wrap">
+                <Lock className="form-input-wrap__icon" size={20} />
                 <input
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   required
-                  className="form-input pl-10 pr-10"
+                  className="form-input form-input--with-icon form-input--with-action"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="form-input-wrap__action"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -90,39 +91,39 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+          <div className="auth-form__options">
+            <label className="checkbox-field">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                className="checkbox-field__input"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <span className="checkbox-field__label">
                 Remember me
-              </label>
-            </div>
+              </span>
+            </label>
 
-            <div className="text-sm">
-              <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
+            <div>
+              <button type="button" className="button-link">
                 Forgot your password?
-              </a>
+              </button>
             </div>
           </div>
 
-          <div>
+          <div className="auth-form__submit">
             <button
               type="submit"
-              className="btn btn-primary w-full btn-lg"
+              className="button button--primary button--large button--full"
             >
               Sign in
             </button>
           </div>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          <div className="auth-card__footer">
+            <p className="auth-card__footer-text">
               Don't have an account?{' '}
-              <Link to="/register" className="font-medium text-primary-600 hover:text-primary-500">
+              <Link to="/register" className="auth-card__link">
                 Sign up here
               </Link>
             </p>

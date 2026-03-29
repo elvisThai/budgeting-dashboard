@@ -1,0 +1,30 @@
+.connect-bank-page__security, .connect-bank-page__faq { margin-bottom: 2rem; }
+.connect-bank-page__security { background: var(--primary-50); border-color: #bae6fd; }
+.connect-bank-page__security-body, .connect-bank-page__account, .connect-bank-page__account-main, .connect-bank-page__status, .connect-bank-page__benefit, .connect-bank-page__account-icon { display: flex; }
+.connect-bank-page__security-body, .connect-bank-page__benefit { gap: 0.9rem; }
+.connect-bank-page__security-icon { color: var(--primary-600); flex-shrink: 0; }
+.connect-bank-page__security-title { margin-bottom: 0.35rem; color: var(--primary-900); }
+.connect-bank-page__security-text, .connect-bank-page__faq-list p { margin: 0; color: var(--primary-900); }
+.connect-bank-page__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.connect-bank-page__stack, .connect-bank-page__options, .connect-bank-page__benefits, .connect-bank-page__faq-list, .connect-bank-page__accounts { display: flex; flex-direction: column; }
+.connect-bank-page__stack, .connect-bank-page__options, .connect-bank-page__benefits, .connect-bank-page__faq-list { gap: 1.5rem; }
+.connect-bank-page__accounts { gap: 1rem; }
+.connect-bank-page__account { align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); }
+.connect-bank-page__account-main { align-items: center; gap: 0.85rem; }
+.connect-bank-page__account-icon { width: 2.5rem; height: 2.5rem; align-items: center; justify-content: center; border-radius: 999px; background: var(--primary-100); color: var(--primary-600); }
+.connect-bank-page__account-name, .connect-bank-page__benefit-title { font-weight: 700; }
+.connect-bank-page__account-meta, .connect-bank-page__benefit-text { font-size: 0.9rem; color: var(--gray-500); }
+.connect-bank-page__account-side { text-align: right; }
+.connect-bank-page__account-balance { font-weight: 700; }
+.connect-bank-page__status { align-items: center; justify-content: flex-end; gap: 0.3rem; color: var(--success-600); font-size: 0.9rem; }
+.connect-bank-page__option { padding: 1.5rem; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); text-align: center; }
+.connect-bank-page__option--primary { border: 2px dashed var(--gray-300); }
+.connect-bank-page__option-icon { margin-bottom: 0.75rem; color: var(--gray-400); }
+.connect-bank-page__option h4, .connect-bank-page__faq-list h4 { margin-bottom: 0.35rem; }
+.connect-bank-page__option p { margin-bottom: 1rem; font-size: 0.92rem; }
+.connect-bank-page__divider { text-align: center; color: var(--gray-500); font-size: 0.92rem; }
+.connect-bank-page__benefit svg { color: var(--success-600); flex-shrink: 0; margin-top: 0.1rem; }
+
+@media (max-width: 960px) {
+  .connect-bank-page__grid { grid-template-columns: 1fr; }
+}
