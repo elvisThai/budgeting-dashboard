@@ -1,6 +1,5 @@
 import React from 'react';
 import { TrendingUp, TrendingDown, DollarSign, CreditCard, ArrowUpRight, ArrowDownRight } from 'lucide-react';
-import Dashboard from '../components/Dashboard';
 
 const DashboardPage = () => {
   // Mock data for demonstration
