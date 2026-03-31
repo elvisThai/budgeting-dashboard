@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, Check } from 'lucide-react';
 import './Auth.css';
+import { registerUser } from '../services/authApi';
 
-const Register = () => {
+const Register = ({ onAuthSuccess, isLoggedIn }) => {
+  //store register form values
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,6 +16,14 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    //clear old error when user edits fields
+    setError('');
+  }, [formData.firstName, formData.lastName, formData.email, formData.password, formData.confirmPassword]);
 
   const handleChange = (e) => {
     setFormData({
@@ -22,10 +32,33 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log('Registration attempt:', formData);
+
+    //stop if passwords do not match
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    //start register request
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const data = await registerUser({
+        email: formData.email,
+        password: formData.password
+      });
+      //save user in app state and go home
+      onAuthSuccess(data);
+      navigate('/');
+    } catch (requestError) {
+      //show backend register error
+      setError(requestError.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const passwordRequirements = [
@@ -35,19 +68,24 @@ const Register = () => {
     { text: 'Contains number', met: /\d/.test(formData.password) }
   ];
 
+  if (isLoggedIn) {
+    //skip register page if already signed in
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="auth-card__header">
-          <div className="auth-card__icon">
+        <div className="auth-head">
+          <div className="auth-icon">
             <User size={24} />
           </div>
-          <h2 className="auth-card__title">
+          <h2 className="auth-title">
             Create your account
           </h2>
-          <p className="auth-card__subtitle">
+          <p className="auth-subtitle">
             Or{' '}
-            <Link to="/login" className="auth-card__link">
+            <Link to="/login" className="auth-link">
               sign in to your existing account
             </Link>
           </p>
@@ -188,6 +226,8 @@ const Register = () => {
             </div>
           </div>
 
+          {error ? <p className="form-error">{error}</p> : null}
+
           <label className="checkbox-field">
             <input
               id="terms"
@@ -214,16 +254,16 @@ const Register = () => {
             <button
               type="submit"
               className="button button--primary button--large button--full"
-              disabled={!agreedToTerms || formData.password !== formData.confirmPassword}
+              disabled={!agreedToTerms || formData.password !== formData.confirmPassword || isSubmitting}
             >
-              Create account
+              {isSubmitting ? 'Creating account...' : 'Create account'}
             </button>
           </div>
 
-          <div className="auth-card__footer">
-            <p className="auth-card__footer-text">
+          <div className="auth-foot">
+            <p className="auth-text">
               Already have an account?{' '}
-              <Link to="/login" className="auth-card__link">
+              <Link to="/login" className="auth-link">
                 Sign in here
               </Link>
             </p>

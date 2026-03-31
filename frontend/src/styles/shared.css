@@ -1,4 +1,4 @@
-.button, .button-link, .card, .card__header, .card__body, .card__footer, .form-field, .form-input-wrap, .checkbox-field, .empty-state__icon { display: flex; }
+.button, .button-link, .card, .card__body, .card__footer, .form-field, .form-input-wrap, .checkbox-field, .empty-state__icon { display: flex; }
 .button, .card, .form-input, .button-link { transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
 
 .button { align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.25rem; border: 1px solid transparent; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; }

@@ -1,13 +1,14 @@
-.navigation { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); }
-.navigation__inner, .navigation__brand, .navigation__links, .navigation__actions, .navigation__link { display: flex; align-items: center; }
-.navigation__inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-xl); min-height: 4.5rem; justify-content: space-between; gap: var(--spacing-lg); }
-.navigation__brand { gap: var(--spacing-sm); color: var(--primary-600); font-size: 1.25rem; font-weight: 700; text-decoration: none; }
-.navigation__links { gap: var(--spacing-sm); list-style: none; }
-.navigation__link { padding: 0.6rem 0.9rem; color: var(--gray-600); text-decoration: none; border-radius: var(--radius-md); transition: background-color 0.2s ease, color 0.2s ease; }
-.navigation__link:hover, .navigation__link--active { color: var(--primary-600); background: var(--primary-50); }
-.navigation__actions { gap: var(--spacing-sm); }
+.nav { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); }
+.nav-inner, .nav-brand, .nav-links, .nav-actions, .nav-link { display: flex; align-items: center; }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-xl); min-height: 4.5rem; justify-content: space-between; gap: var(--spacing-lg); }
+.nav-brand { gap: var(--spacing-sm); color: var(--primary-600); font-size: 1.25rem; font-weight: 700; text-decoration: none; }
+.nav-links { gap: var(--spacing-sm); list-style: none; }
+.nav-link { padding: 0.6rem 0.9rem; color: var(--gray-600); text-decoration: none; border-radius: var(--radius-md); transition: background-color 0.2s ease, color 0.2s ease; }
+.nav-link:hover, .nav-link--active { color: var(--primary-600); background: var(--primary-50); }
+.nav-actions { gap: var(--spacing-sm); }
+.nav-user { color: var(--gray-600); font-size: 0.9rem; font-weight: 600; }
 
 @media (max-width: 900px) {
-  .navigation__inner { padding: 0 var(--spacing-md); flex-wrap: wrap; justify-content: center; padding-top: var(--spacing-sm); padding-bottom: var(--spacing-sm); }
-  .navigation__links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; }
+  .nav-inner { padding: 0 var(--spacing-md); flex-wrap: wrap; justify-content: center; padding-top: var(--spacing-sm); padding-bottom: var(--spacing-sm); }
+  .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; }
 }

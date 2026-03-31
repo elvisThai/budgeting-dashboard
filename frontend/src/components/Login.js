@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import './Auth.css';
+import { loginUser } from '../services/authApi';
 
-const Login = () => {
+const Login = ({ onAuthSuccess, isLoggedIn }) => {
+  //store login form values
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    //clear old error when user edits fields
+    setError('');
+  }, [formData.email, formData.password]);
 
   const handleChange = (e) => {
     setFormData({
@@ -17,25 +27,44 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', formData);
+
+    //start login request
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const data = await loginUser(formData);
+      //save user in app state and go home
+      onAuthSuccess(data);
+      navigate('/');
+    } catch (requestError) {
+      //show backend login error
+      setError(requestError.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (isLoggedIn) {
+    //skip login page if already signed in
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="auth-card__header">
-          <div className="auth-card__icon">
+        <div className="auth-head">
+          <div className="auth-icon">
             <Lock size={24} />
           </div>
-          <h2 className="auth-card__title">
+          <h2 className="auth-title">
             Sign in to your account
           </h2>
-          <p className="auth-card__subtitle">
+          <p className="auth-subtitle">
             Or{' '}
-            <Link to="/register" className="auth-card__link">
+            <Link to="/register" className="auth-link">
               create a new account
             </Link>
           </p>
@@ -91,6 +120,8 @@ const Login = () => {
             </div>
           </div>
 
+          {error ? <p className="form-error">{error}</p> : null}
+
           <div className="auth-form__options">
             <label className="checkbox-field">
               <input
@@ -115,15 +146,16 @@ const Login = () => {
             <button
               type="submit"
               className="button button--primary button--large button--full"
+              disabled={isSubmitting}
             >
-              Sign in
+              {isSubmitting ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
 
-          <div className="auth-card__footer">
-            <p className="auth-card__footer-text">
+          <div className="auth-foot">
+            <p className="auth-text">
               Don't have an account?{' '}
-              <Link to="/register" className="auth-card__link">
+              <Link to="/register" className="auth-link">
                 Sign up here
               </Link>
             </p>
