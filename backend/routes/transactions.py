@@ -1,7 +1,5 @@
 from datetime import datetime
-
 from flask import Blueprint, g, jsonify, request
-
 from models import Account, Transaction, db
 from utils.auth_helpers import requireAuth
 
