@@ -33,6 +33,17 @@ class Account(db.Model):
     mask = db.Column(db.String(20), nullable=True)
     transactions = db.relationship("Transaction", backref="account", lazy=True, cascade="all, delete-orphan")
 
+    #return account data for api responses
+    def toDict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "plaid_account_id": self.plaid_account_id,
+            "name": self.name,
+            "type": self.type,
+            "mask": self.mask,
+        }
+
 class Transaction(db.Model):
     __tablename__ = "transactions"
 
@@ -45,3 +56,18 @@ class Transaction(db.Model):
     amount = db.Column(db.Float, nullable=False)
     category = db.Column(db.String(255), nullable=True)
     merchant_name = db.Column(db.String(255), nullable=True)
+
+    #return transaction data for api responses
+    def toDict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "account_id": self.account_id,
+            "plaid_transaction_id": self.plaid_transaction_id,
+            "date": self.date.isoformat() if self.date else None,
+            "name": self.name,
+            "amount": self.amount,
+            "category": self.category,
+            "merchant_name": self.merchant_name,
+            "account": self.account.toDict() if self.account else None,
+        }

@@ -3,6 +3,7 @@ from config import Config
 from middleware.auth import loadCurrentUser
 from models import db
 from routes.auth import auth_bp
+from routes.transactions import transactions_bp
 
 def createApp():
     app = Flask(__name__)
@@ -12,6 +13,7 @@ def createApp():
     db.init_app(app)
     app.before_request(loadCurrentUser)
     app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(transactions_bp, url_prefix="/transactions")
 
     #basic test route
     @app.route("/")
